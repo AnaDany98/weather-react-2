@@ -1,15 +1,20 @@
+import React from "react";
 import "./App.css";
-import Weather from "./Weather.js";
+import Weather from "./Weather";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-
-        <Weather city="Paris" />
-      </header>
+export default function App(){
+  return <div className="App">
+    <div className="container">
+      <h1>Weather App</h1>
+      <Weather />
+      <footer>
+        This project was coded by <a href="#" target="_blank">Ana Daniela Garcia Lara</a> and is
+        <a href="https://github.com/AnaDany98/weather-react-2/tree/main" target="_blank"> open-sourced on GitHub</a>
+      </footer>      
     </div>
-  );
+
+    
+    </div>
 }
 
-export default App;
+
