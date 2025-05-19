@@ -1,7 +1,9 @@
+[build]
+  base = "Weather"
+  publish = "Weather/build"
+  command = "npm install && npm run build"
+
 [[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
-
-[build]
-  publish = "build"
