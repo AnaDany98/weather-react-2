@@ -24,7 +24,16 @@ export default function App(){
             rel="noreferrer noopener"
           >
             {" "}
-            open-sourced on GitHub
+            open-sourced on GitHub 
+          </a>
+           and
+          <a
+            href="https://extraordinary-scone-cf661a.netlify.app/"
+            target="_blank"
+            rel="noreferrer noopener"
+          >
+            {" "}
+            hosted on Netlify
           </a>
         </footer>
       </div>
