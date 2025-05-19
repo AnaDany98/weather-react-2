@@ -13,6 +13,7 @@ export default function App(){
           <a
             href="https://www.linkedin.com/in/ana-daniela-garc%C3%ADa-lara-001336216/"
             target="_blank"
+            rel="noreferrer noopener"
           >
             Ana Daniela Garcia Lara
           </a>{" "}
@@ -20,6 +21,7 @@ export default function App(){
           <a
             href="https://github.com/AnaDany98/weather-react-2/tree/main"
             target="_blank"
+            rel="noreferrer noopener"
           >
             {" "}
             open-sourced on GitHub
