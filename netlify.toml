@@ -1,7 +1,6 @@
 [build]
-  base = "Weather"
-  publish = "Weather/build"
-  command = "npm install && npm run build"
+  publish = "build"
+  command = "npm run build"
 
 [[redirects]]
   from = "/*"
