@@ -1,54 +1,73 @@
-import React from "react";
+import React, { useState } from "react";
+import WeatherInfo from "./WeatherInfo";
+import WeatherForecast from "./WeatherForecast";
+import axios from "axios";
 import "./Weather.css";
 
-export default function Weather() {
-  return (
-    <div className="Weather">
-      <form>
-        <div className="row">
-          <div className="col-9">
-            <input
-              type="search"
-              placeholder="Enter a city..."
-              className="form-control"
-              autoFocus="on"
-            />            
-          </div>
-          <div className="col-3">
-            <input type="submit" value="Search" className="btn btn-primary w-100" />            
-          </div>
+export default function Weather(props) {
+  const [weatherData, setWeatherData] = useState({ ready: false });
+  const [city, setCity] = useState(props.defaultCity);
 
+  function handleResponse(response) {
+    console.log(response.data); 
 
-        </div>
-      </form>
-      <h1>Lisbon</h1>
-      <ul>
-        <li>Monday 5:00 p.m.</li>
-        <li>Mostly Cloudy</li>
-      </ul>
-      <div className="row m3-3">
-        <div className="col-6">
-          <div className="d-flex">
-            <img
-              src="https://ssl.gstatic.com/onebox/weather/64/partly_cloudy.png"
-              alt="Partly Cloudy"
-              className="float-left"
-            />  
-            <div className="float-left">
-              <span className="temperature">6</span>
-              <span className="unit">°C</span>     
+    setWeatherData({
+      ready: true,
+      coordinates: response.data.coordinates,
+      temperature: response.data.temperature.current,
+      humidity: response.data.temperature.humidity,
+      date: new Date(response.data.time * 1000),
+      description: response.data.condition.description,
+      icon: response.data.condition.icon,
+      wind: response.data.wind.speed,
+      city: response.data.city,
+    });
+  }
+
+  function handleSubmit(event) {
+    event.preventDefault();
+    search();
+  }
+
+  function handleCityChange(event) {
+    setCity(event.target.value);
+  }
+
+  function search() {
+    const apiKey = "4ff2f0648e0df0799b7bof1atd773a9a";
+    let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}`;
+    axios.get(apiUrl).then(handleResponse);
+  }
+
+  if (weatherData.ready) {
+    return (
+      <div className="Weather">
+        <form onSubmit={handleSubmit}>
+          <div className="row">
+            <div className="col-9">
+              <input
+                type="search"
+                placeholder="Enter a city.."
+                className="form-control"
+                autoFocus="on"
+                onChange={handleCityChange}
+              />
             </div>
-                 
+            <div className="col-3">
+              <input
+                type="submit"
+                value="Search"
+                className="btn btn-primary w-100"
+              />
+            </div>
           </div>
-        </div>
-        <div className="col-6">
-          <ul>
-            <li>Presipitation: 15%</li>
-            <li>Humidity: 72%</li>
-            <li>Wind: 13 km/h</li>
-          </ul>
-        </div>
+        </form>
+        <WeatherInfo data={weatherData} />
+        <WeatherForecast coordinates={weatherData.coordinates} />
       </div>
-    </div>
-  );
+    );
+  } else {
+    search();
+    return "Loading...";
+  }
 }
